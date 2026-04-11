@@ -1,6 +1,6 @@
-# Krazimo Mini AI CRM — Shadow Launch Demo
+Mini AI CRM
 
-A working prototype of Krazimo's Stage 3 "man-in-the-middle" pattern.
+A working prototype of AI - CRM Stage 3 "man-in-the-middle" pattern.
 AI agents score, route, and draft outreach for incoming leads — humans approve, edit, or reject before anything sends.
 
 ## What it demonstrates
@@ -8,7 +8,7 @@ AI agents score, route, and draft outreach for incoming leads — humans approve
 - **LangGraph multi-node pipeline** — 4 sequential agent nodes (score → route → draft → explain)
 - **Human-in-the-loop interrupt** — graph pauses before approval, resumes after human decision
 - **Observability** — confidence scores, agent reasoning, and audit log per lead
-- **Phased autonomy** — nothing executes without human sign-off (mirrors Krazimo's exact Stage 3)
+- **Phased autonomy** — nothing executes without human sign-off
 
 ## Architecture
 
@@ -31,11 +31,11 @@ Lead submitted
 
 ## Stack
 
-| Layer | Tech |
-|---|---|
-| Agent graph | LangGraph + Groq (LLaMA3 8B) |
+| Layer       | Tech                          |
+| ----------- | ----------------------------- |
+| Agent graph | LangGraph + Groq (LLaMA3 8B)  |
 | Backend API | FastAPI + SQLAlchemy + SQLite |
-| Frontend | Next.js 15 + Tailwind CSS |
+| Frontend    | Next.js 15 + Tailwind CSS     |
 
 ## Setup
 
