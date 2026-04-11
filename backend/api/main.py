@@ -169,13 +169,6 @@ def update_lead(
     for field, value in update_data.items():
         setattr(lead, field, value)
 
-    write_audit(
-        db,
-        lead,
-        "lead_updated",
-        f"Updated fields: {list(update_data.keys())}",
-        "human"
-    )
 
     db.commit()
     db.refresh(lead)
@@ -189,6 +182,21 @@ def get_lead(lead_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Lead not found")
     return lead
 
+@app.delete("/leads/{lead_id}")
+def delete_lead(lead_id: str, db: Session = Depends(get_db)):
+    lead = db.query(Lead).filter(Lead.id == lead_id).first()
+
+    if not lead:
+        raise HTTPException(status_code=404, detail="Lead not found")
+
+    # Optional: delete related audit logs first
+    db.query(AuditLog).filter(AuditLog.lead_id == lead_id).delete()
+
+    # Delete lead
+    db.delete(lead)
+    db.commit()
+
+    return {"message": "Lead deleted successfully", "lead_id": lead_id}
 
 @app.post("/leads/{lead_id}/approve", response_model=LeadOut)
 def approve_lead(lead_id: str, payload: ApprovalAction, db: Session = Depends(get_db)):
